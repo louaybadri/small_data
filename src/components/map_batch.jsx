@@ -12,8 +12,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const geoUrl = "../../features.json";
 
 
-const MapChart = () => {
-    const [data, setData] = useState([]);
+const MapBatchChart = () => {
     function getRedIntensityColor(value, min, max) {
         // Normalize the value to a number between 0 and 1
         var normalizedValue = 1 - (value - min) / (max - min);
@@ -66,8 +65,8 @@ const MapChart = () => {
                 scale: 147,
             }}
         >
-            <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
-            <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
+            <Sphere stroke="#ABCDEF" strokeWidth={0.5} />
+            <Graticule stroke="#ABCDEF" strokeWidth={0.5} />
             <Geographies geography={geoUrl}>
                 {
                     ({ geographies }) => {
@@ -88,24 +87,28 @@ const MapChart = () => {
                                     geography={geo}
                                     onClick={
                                         () => {
-                                            toast(value.capital, {
+
+                                            // get only 3 digits after . in value.average_temperature
+
+                                            toast(value.average_temperature.toFixed(3) + " C", {
                                                 style: {
                                                     borderRadius: '10px',
                                                     background: '#333',
                                                     color: '#fbf',
                                                     padding: '16px',
-                                                },
-                                            });
-                                            toast(value.average_temperature, {
-                                                style: {
-                                                    alignContent: 'center',
-                                                    borderRadius: '10px',
-                                                    background: '#333',
-                                                    color: '#fbf',
-                                                    padding: '16px',
+                                                    textAlign: 'center',
                                                 }
                                             });
+
+                                            toast("Average temps in " + value.capital + " is ", {
+                                                style: {
+                                                    borderRadius: '10px',
+                                                    background: '#333',
+                                                    color: '#fbf',
+                                                },
+                                            });
                                         }
+
                                     }
                                     // fill={getRedIntensityColor(index, minValue, maxValue)}
                                     fill={getRedIntensityColor(value.average_temperature, minValue, maxValue)}
@@ -113,8 +116,19 @@ const MapChart = () => {
                             } else {
                                 result = <Geography
                                     key={geo.rsmKey}
-                                    geography={geo}
+                                    geography={geo} onClick={
+                                        () => {
+                                            toast("No available data in " + geo.properties.name, {
+                                                style: {
+                                                    borderRadius: '10px',
+                                                    background: '#333',
+                                                    color: '#fbf',
+                                                    padding: '16px',
+                                                },
+                                            });
 
+                                        }
+                                    }
                                     fill={getRedIntensityColor(index, minValue, maxValue)}
                                 />
                             }
@@ -130,4 +144,4 @@ const MapChart = () => {
     );
 };
 
-export default MapChart;
+export default MapBatchChart;

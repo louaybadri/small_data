@@ -1,0 +1,19 @@
+.active {
+    background-color: rgb(255, 103, 103);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.navbarItem {
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-align: center;
+}

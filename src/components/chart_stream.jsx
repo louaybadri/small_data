@@ -40,10 +40,10 @@ function StreamChart() {
         socket.on('dataChange', (data) => {
             console.log("data received");
             const update = data.fullDocument
-            console.log(update);
+
             if (update) {
                 async function fetchAllData() {
-                    const response = await axios.get("http://localhost:3005/all");
+                    const response = await axios.get("http://localhost:3005/stream/all");
                     // console.log(response);
                     if (response.data.success) {
                         // console.log(response.data.value);
